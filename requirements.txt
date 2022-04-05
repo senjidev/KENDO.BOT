@@ -1,0 +1,4 @@
+discord
+youtube-dl
+discord-py-interactions
+discord-py-slash-command
