@@ -64,7 +64,7 @@ async def addto(ctx):
         
         if p2b.content.startswith("^"):
             with open('./post_board/board01.md', 'a') as f:
-                scribe = str(f"```***{current_time}***\n{p2b.content}\n```\n")
+                scribe = str(f"```***{current_time}***\n{p2b.content}\n```\n ``` post by {p2b.author}```")
                 await ctx.send(f"This post looking good?\n\n{scribe}")
                 await a.sleep(1)
                 await ctx.send("\n(Yes, or no)")
@@ -72,11 +72,11 @@ async def addto(ctx):
                     return msg_y_n.author == ctx.author and msg_y_n.channel == ctx.channel and msg_y_n.content.lower() in ["yes", "no"]
                 m_y_n = await client.wait_for("message", check = y_n_check)
                 if m_y_n.content.lower() == "yes":
-                    f.write(str(f"***{current_time}***\n```{p2b.content}\n```\n"))
+                    f.write(str(f"***{current_time}***\n```{p2b.content}\n```\n ``` post by {p2b.author}```"))
                     await ctx.send("Done! :)")
                 else:
                     await ctx.send("oh well, doin' it anyway. >:)")
-                    f.write(str(f"***{current_time}***\n```{p2b.content}\n```\n"))
+                    f.write(str(f"***{current_time}***\n```{p2b.content}\n```\n ``` post by {p2b.author}```"))
     if m.content.lower() == "view":
         await p_board(m.channel)
 
