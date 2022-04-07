@@ -64,7 +64,7 @@ async def addto(ctx):
         
         if p2b.content.startswith("^"):
             with open('./post_board/board01.md', 'a') as f:
-                scribe = str(f"\n```***{current_time}***\n{p2b.content}\n```\n ``` post by {p2b.author}```")
+                scribe = str(f"\n```***{current_time}***\n{p2b.content}\n```\n ``` post by {p2b.author}```") 
                 await ctx.send(f"This post looking good?\n\n{scribe}")
                 await a.sleep(1)
                 await ctx.send("\n(Yes, or no)")
