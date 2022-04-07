@@ -10,7 +10,3 @@
         + MORE COMING SOON
         )
 ```
-```~SENJI```***04/06 22:46***
-```^ 1st public board!?!?!
-```
- ``` post by senji#2137```
