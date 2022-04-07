@@ -42,7 +42,7 @@ async def rm(ctx, limit: int):
 @commands.has_permissions(administrator=True)
 async def hlp(ctx):
     await ctx.send(
-        f'Available Commands:\n\t(Post Board: "/pb" ***Displays The Post Board for events and activities***)\n\t(Bio: "/bio" ***Displays a brief description of KendoBot***)\n\t(Add To Post Board: " /addto " ***Allows a user to create a message and post it!***)'
+        f'Available Commands:\n\t(Post Board: "/pb" ***Displays The Post Board for events and activities***)\n\t(Bio: "/bio" ***Displays a brief description of KendoBot***)\n\t(Add To Post Board: " /addto " ***Allows a user to create a message and post it!***)\n'
         )
 
 """ADD TO POST BOARD FROM CLIENT?"""
