@@ -2,15 +2,15 @@
 import discord
 from discord.ext import commands
 import asyncio as a
-from datetime import datetime as dt
+import time as t
 """VARIABLES"""
 token_id = open('../KBtoken/token.txt', 'r').read()
 client = commands.Bot(command_prefix='/')
 clientINS = discord.Client()
 global now
-now = dt.now()
+now = t.localtime()
 global current_time
-current_time = now.strftime("%m/%d %H:%M")
+current_time = t.strftime("%m/%d %H:%M", now)
 
 """BOT LOGIN CONFIRMATION MESSEGE"""
 @client.event
@@ -64,7 +64,7 @@ async def addto(ctx):
         
         if p2b.content.startswith("^"):
             with open('./post_board/board01.md', 'a') as f:
-                scribe = str(f"\n```***{current_time}***\n{p2b.content}\n```\n ``` post by {p2b.author}```") 
+                scribe = str(f"\n```***{current_time}***\n{p2b.content}\n```\n ``` post by {p2b.author} in {p2b.guild}```") 
                 await ctx.send(f"This post looking good?\n\n{scribe}")
                 await a.sleep(1)
                 await ctx.send("\n(Yes, or no)")
@@ -72,11 +72,11 @@ async def addto(ctx):
                     return msg_y_n.author == ctx.author and msg_y_n.channel == ctx.channel and msg_y_n.content.lower() in ["yes", "no"]
                 m_y_n = await client.wait_for("message", check = y_n_check)
                 if m_y_n.content.lower() == "yes":
-                    f.write(str(f"\n***{current_time}***\n```{p2b.content}\n```\n ``` post by {p2b.author}```"))
+                    f.write(str(f"\n***{current_time}***\n```{p2b.content}\n```\n ``` post by {p2b.author} in {p2b.guild}```"))
                     await ctx.send("Done! :)")
                 else:
                     await ctx.send("oh well, doin' it anyway. >:)")
-                    f.write(str(f"\n***{current_time}***\n```{p2b.content}\n```\n ``` post by {p2b.author}```"))
+                    f.write(str(f"\n***{current_time}***\n```{p2b.content}\n```\n ``` post by {p2b.author} in {p2b.guild}```"))
     if m.content.lower() == "view":
         await p_board(m.channel)
 
