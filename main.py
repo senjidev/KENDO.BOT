@@ -41,9 +41,9 @@ async def rm(ctx, limit: int):
 @client.command(name='hlp')
 @commands.has_permissions(administrator=True)
 async def hlp(ctx):
-    await ctx.send(
-        f'Available Commands:\n\t(Post Board: "/pb" ***Displays The Post Board for events and activities***)\n\t(Bio: "/bio" ***Displays a brief description of KendoBot***)\n\t(Add To Post Board: " /addto " ***Allows a user to create a message and post it!***)\n'
-        )
+    with open("./commands.md", "r") as c:
+        cmd_scribe = str(c.read())
+    await ctx.send(cmd_scribe)
 
 """ADD TO POST BOARD FROM CLIENT?"""
 @client.command(name='addto')
@@ -51,13 +51,12 @@ async def hlp(ctx):
 async def addto(ctx):
     
     await ctx.send('Would you like to ***add***  a new post, or ***view***  previous ones?\n')
-
     def check(msg):
         return msg.author == ctx.author and msg.channel == ctx.channel and msg.content.lower() in ["add", "view"]    
     m = await client.wait_for("message", check=check)
+    
     if m.content.lower() == "add":
-        await ctx.send("Write out your post down there, and ill add it to the board. (Please Remember to add a '^' at the beginning of your post, makes it easier for me to read. ;)")
-        
+        await ctx.send("Write out your post down there, and ill add it to the board. (Please Remember to add a '^' at the beginning of your post, makes it easier for me to read. ;)")    
         def p2b_check(msg):
             return msg.author == ctx.author and msg.channel == ctx.channel
         p2b = await client.wait_for("message", check=p2b_check)
@@ -84,13 +83,49 @@ async def addto(ctx):
 
 """WATCH PARTY INTEGRATION"""
 
-@clientINS.event
-async def on_message(message):
-    if message.content.startswith('party/'):
-        chnl = message.channel
-        chnl.send("{WATCH PARTY SCHEDULE/INFO HERE}")
+@client.command(name='wp')
+async def watch_party(ctx):
+        await ctx.send("Would you like to schedule a new watch party event or view established ones?")
+        await a.sleep(1)
+        await ctx.send("Sch/View")
+        def check(message):
+            return message.author == ctx.author and message.channel == ctx.channel and message.content.lower() in ["sch","view"]
+        m = await client.wait_for("message", check =check)
+        
+        if m.content.lower() == "sch":
+            await ctx.send("Go ahead and layout your schedule down there, and ill add it to the watch party board.")
+            await a.sleep(.5)
+            await ctx.send("If you would like an example on how i think you could format one best, type /wp_hlp")
+            await a.sleep(.5)
+            await ctx.send('Please rememeber to start your post with a "w^". Makes things easier for me to read. ;)')
+            def wp_check(sch):
+                return sch.author == ctx.author and sch.channel == ctx.channel
+            wp2b = await client.wait_for("message", check =wp_check)
 
+            if wp2b.content.startswith("w^"):
+                with open('./wp/wp_board01.md', 'a') as wp_scribe:
+                    wpScribe = f"\n***{current_time}***\n```\n{wp2b.content}\n```\n ``` post by {wp2b.author} in {ctx.guild}```\n"
+                    await ctx.send("This schedule post look all good?\n")
+                    await ctx.send(str(wpScribe))
+                    await a.sleep(1)
+                    await ctx.send("Yes or no?\n")
+                    def wp_y_n(msg):
+                        return msg.author == ctx.author and msg.channel == ctx.channel and msg.content.lower() in ["yes", "no"]
+                    wp2b_fin = await client.wait_for("message", check =wp_y_n)
+                    if wp2b_fin.content.lower() == "yes":
+                        await ctx.send(f"Creating your schedule {wp2b.author}!\n")
+                        wp_scribe.write(str(f"\n***{current_time}***\n```\n{wp2b.content}\n```\n ``` post by {wp2b.author} in {ctx.guild}\n```"))
+                        await a.sleep(2)
+                        await ctx.send("Done!\n")
 
+                    if wp2b_fin.content.lower() == "no":
+                        await ctx.send(f"The edit post feature is currently under development. :((( \n ***FUTURE FEATURE WILL INCLUDE THIS.\n DO NOT TRY ANSWERING THIS PART OF THE QUESTION.\n THE COMMAND REACHED AN EXCEPTION AND HAS EXITED PLEASE RUN THIS COMMAND AGAIN WITH YOUR EDITED POST***\n(Would you like to post this schedule anyway, or discard it?)")
+                        #add conditionals here
+
+        if m.content.lower() == "view":
+            with open('./wp/wp_board01.md', 'r') as f:
+                scribe = f.read()
+                await ctx.send(str(f'\n```{scribe}```\n'))
 
 """API INTEGRATIONS"""
 

@@ -18,14 +18,8 @@
 ```^ <@238116447686098944> but in a text file
 ```
  ``` post by senji#2137 in KENDO CLUB (JUTSU)```
-***04/06 23:15***
-```^ post from here too!?!?!?
+ 
+***04/07 08:46***
+```^ lmao
 ```
-***04/06 23:15***
-```^ test
-```
- ``` post by senji#2137 in KENDO CLUB (JUTSU)```
-***04/06 23:31***
-```^ test
-```
- ``` post by senji#2137 in KENDO CLUB (JUTSU)```
+ ``` post by senji#2137 in Shenjutsu```
