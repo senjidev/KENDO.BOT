@@ -104,7 +104,7 @@ async def watch_party(ctx):
 
             if wp2b.content.startswith("w^"):
                 with open('./wp/wp_board01.md', 'a') as wp_scribe:
-                    wpScribe = f"\n***{current_time}***\n```\n{wp2b.content}\n```\n ``` post by {wp2b.author} in {ctx.guild}```\n"
+                    wpScribe = f"\n***{current_time}***\n```{wp2b.content}\n\n***post by {wp2b.author} in {ctx.guild}***```\n"
                     await ctx.send("This schedule post look all good?\n")
                     await ctx.send(str(wpScribe))
                     await a.sleep(1)
@@ -114,7 +114,7 @@ async def watch_party(ctx):
                     wp2b_fin = await client.wait_for("message", check =wp_y_n)
                     if wp2b_fin.content.lower() == "yes":
                         await ctx.send(f"Creating your schedule {wp2b.author}!\n")
-                        wp_scribe.write(str(f"\n***{current_time}***\n```\n{wp2b.content}\n```\n ``` post by {wp2b.author} in {ctx.guild}\n```"))
+                        wp_scribe.write(str(f"\n***{current_time}***\n```{wp2b.content}\n\n***post by {wp2b.author} in {ctx.guild}***```"))
                         await a.sleep(2)
                         await ctx.send("Done!\n")
 
@@ -125,11 +125,11 @@ async def watch_party(ctx):
         if m.content.lower() == "view":
             with open('./wp/wp_board01.md', 'r') as f:
                 scribe = f.read()
-                await ctx.send(str(f'\n```{scribe}```\n'))
+                await ctx.send(str(f'\n{scribe}\n'))
 
 """API INTEGRATIONS"""
 
-
+ 
 
 """BOT DESCRIPTION"""
 @client.command(name="bio")
